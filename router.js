@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
-  console.log("HOME");
-});
+const photobooth = require("./controllers/photobooth/photobooth.controller");
+const { getPhotobooth } = photobooth;
+
+router.get("/", getPhotobooth);
 
 module.exports = router;
