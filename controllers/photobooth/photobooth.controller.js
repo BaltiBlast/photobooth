@@ -1,6 +1,6 @@
 const photobooth = {
   getPhotobooth: (req, res, next) => {
-    console.log("HOME");
+    res.render("photobooth");
   },
 };
 
