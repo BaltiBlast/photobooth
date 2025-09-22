@@ -1,3 +1,4 @@
+const { uploadToWasabi, getFormattedPictureName } = require("../../models/wasabi.model.js");
 const fs = require("fs");
 
 const photobooth = {
@@ -6,10 +7,12 @@ const photobooth = {
   },
 
   uploadPicture: async (req, res, next) => {
-    const picture = await fs.readFileSync("./public/assets/test.jpg");
+    const picture = fs.readFileSync("./public/assets/test.jpg");
+    const pictureNameFormated = await getFormattedPictureName();
+
     try {
-      console.log("PICTURE FROM", picture);
-      return res.send("BIEN RECU");
+      const upload = await uploadToWasabi(picture, pictureNameFormated);
+      return res.send(upload);
     } catch (err) {
       console.error(err);
       return res.status(500).send("Erreur de lecture du fichier");
