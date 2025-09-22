@@ -26,6 +26,24 @@
   </div>
 </section>
 
+<dialog id="modalPicturePreview">
+  <article>
+    <header><h2>Conserver ?</h2></header>
+    <img id="pictureTaken" src="" alt="Photo prise" />
+    <footer>
+      <form class="btn-modal">
+        <p>Oui</p>
+        <div class="btn green"></div>
+      </form>
+
+      <div id="btnDeletePicture" class="btn-modal">
+        <p>Non</p>
+        <div class="btn red"></div>
+      </div>
+    </footer>
+  </article>
+</dialog>
+
 <script type="module" src="/js/photobooth.script.js"></script>
 
 <%- include("partials/footer.ejs") %>

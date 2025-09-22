@@ -1,8 +1,14 @@
+const modalPicturePreview = document.getElementById("modalPicturePreview");
+
 const photobooth = {
   init: () => {
     startLiveCamera();
+    spaceBarEvent();
   },
 
+  // ============================================================================== //
+  // Starting external camera //
+  // ============================================================================== //
   startLiveCamera: async () => {
     const video = document.getElementById("video");
 
@@ -19,8 +25,73 @@ const photobooth = {
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
     video.srcObject = stream;
   },
+
+  // ============================================================================== //
+  // Spacebar event who trigger picture take //
+  // ============================================================================== //
+  spaceBarEvent: async () => {
+    window.addEventListener("keydown", (event) => {
+      if (modalPicturePreview.open) return;
+
+      if (event.code === "Space") {
+        event.preventDefault();
+
+        fetch("/take-picture", {
+          method: "POST",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            displayPictureModal(data);
+          })
+          .catch((err) => console.error("❌ Erreur :", err));
+      }
+    });
+  },
+
+  // ============================================================================== //
+  // Display modal with picture taken
+  // ============================================================================== //
+  displayPictureModal: (data) => {
+    const img = document.getElementById("pictureTaken");
+    img.src = data.url;
+
+    modalPicturePreview.showModal();
+    pictureTakenValidation(data.key);
+  },
+
+  // ============================================================================== //
+  // Manager form picture
+  // ============================================================================== //
+  pictureTakenValidation: (key) => {
+    window.addEventListener("keydown", async (event) => {
+      if (!modalPicturePreview.open) return;
+
+      if (event.key.toLowerCase() === "y") {
+        modalPicturePreview.close();
+        console.log("✅ Photo conservée");
+      }
+
+      if (event.key.toLowerCase() === "n") {
+        await deletePicture(key);
+        modalPicturePreview.close();
+        console.log("🗑️ Photo supprimée");
+      }
+    });
+  },
+
+  // ============================================================================== //
+  // Manager form picture
+  // ============================================================================== //
+  deletePicture: async (key) => {
+    fetch(`/delete-picture/${key}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.text())
+      .then((msg) => console.log(msg))
+      .catch((err) => console.error("Erreur suppression photo :", err));
+  },
 };
 
-const { startLiveCamera } = photobooth;
+const { startLiveCamera, spaceBarEvent, displayPictureModal, pictureTakenValidation, deletePicture } = photobooth;
 
 document.addEventListener("DOMContentLoaded", photobooth.init());
