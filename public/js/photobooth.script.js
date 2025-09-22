@@ -4,7 +4,7 @@ const photobooth = {
   },
 
   startLiveCamera: async () => {
-    const videoEl = document.getElementById("video");
+    const video = document.getElementById("video");
 
     const constraints = {
       video: {
@@ -17,7 +17,7 @@ const photobooth = {
     };
 
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
-    videoEl.srcObject = stream;
+    video.srcObject = stream;
   },
 };
 

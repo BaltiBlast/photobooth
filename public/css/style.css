@@ -1,14 +1,138 @@
-#video {
+:root {
+  --frame: 16px;
+  --frames: 2;
+  --scale: 4;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+}
+
+/* ======================================================================== */
+/* TITLE */
+/* ======================================================================== */
+
+.title {
+  display: grid;
+  place-items: center;
+  padding: 3rem;
+  margin: 0;
+}
+
+.title > h1 {
+  font-family: "Jersey 20", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+  font-size: 5.5rem;
+  letter-spacing: 0.3rem;
+  margin: 0;
+  animation: levitation 2.5s ease-in-out infinite;
+}
+
+/* ======================================================================== */
+/* VIDEO */
+/* ======================================================================== */
+
+#video-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+
+#video-container video {
+  max-width: 1450px;
   width: 100%;
   height: auto;
   object-fit: contain;
 }
 
-#video-container {
-  aspect-ratio: 16 / 9;
+#video-container img {
+  position: absolute;
 }
-#video-container > #video {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+
+/* ======================================================================== */
+/* INFOS & QR CODE */
+/* ======================================================================== */
+
+.qr-code,
+.infos {
+  text-align: center;
+}
+
+.qr-code > img {
+  width: 12rem;
+}
+
+.qr-code > h3,
+.infos > h3 {
+  font-size: 3.5rem;
+  font-family: "Jersey 20", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ======================================================================== */
+/* ANIMATED BUTTONS */
+/* ======================================================================== */
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: center;
+}
+
+.btn {
+  width: calc(var(--frame) * var(--scale));
+  height: calc(var(--frame) * var(--scale));
+  background-repeat: no-repeat;
+  background-size: calc(var(--frame) * var(--frames) * var(--scale)) calc(var(--frame) * var(--scale));
+  image-rendering: pixelated;
+  animation: press 0.9s steps(var(--frames)) infinite;
+}
+
+.btn.green {
+  background-image: url("../assets/png/btn-green-ss.png");
+}
+.btn.blue {
+  background-image: url("../assets/png/btn-blue-ss.png");
+}
+.btn.red {
+  background-image: url("../assets/png/btn-red-ss.png");
+}
+.btn.yellow {
+  background-image: url("../assets/png/btn-yellow-ss.png");
+}
+
+/* ======================================================================== */
+/* ANIMATIONS */
+/* ======================================================================== */
+
+.autoplay {
+  animation: press 1s steps(2) infinite;
+}
+
+@keyframes press {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: calc(-1 * var(--frame) * var(--frames) * var(--scale)) 0;
+  }
+}
+
+@keyframes levitation {
+  0% {
+    transform: translateY(0);
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.35);
+  }
+  50% {
+    transform: translateY(-12px);
+    text-shadow: 0 16px 24px rgba(0, 0, 0, 0.15);
+  }
+  100% {
+    transform: translateY(0);
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.35);
+  }
 }

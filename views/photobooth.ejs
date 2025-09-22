@@ -1,10 +1,29 @@
 <%- include("partials/head.ejs") %>
 
-<h1>photobooth</h1>
+<section class="title">
+  <h1>Photobooth</h1>
+</section>
 
-<!-- VIDEO -->
-<section id="video-container">
-  <video autoplay playsinline id="video"></video>
+<section class="grid-container">
+  <div class="infos">
+    <h3>Photo</h3>
+    <div class="btn-grid">
+      <div class="btn red"></div>
+      <div class="btn green"></div>
+      <div class="btn yellow"></div>
+      <div class="btn blue"></div>
+    </div>
+  </div>
+
+  <div id="video-container">
+    <img src="/assets/png/frame.png" alt="" srcset="" />
+    <video autoplay playsinline id="video"></video>
+  </div>
+
+  <div class="qr-code">
+    <h3>Galerie</h3>
+    <img src="/assets/svg/qr-code.svg" alt="qr code" />
+  </div>
 </section>
 
 <script type="module" src="/js/photobooth.script.js"></script>
