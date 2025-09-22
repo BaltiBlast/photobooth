@@ -1,4 +1,4 @@
-const { uploadToWasabi, getFormattedPictureName } = require("../../models/wasabi.model.js");
+const { uploadToWasabi, getFormattedPictureName, deleteFromWasabi } = require("../../models/wasabi.model.js");
 const fs = require("fs");
 
 const photobooth = {
@@ -16,6 +16,20 @@ const photobooth = {
     } catch (err) {
       console.error(err);
       return res.status(500).send("Erreur de lecture du fichier");
+    }
+  },
+
+  deletePicture: async (req, res, next) => {
+    const key = req.params.key;
+
+    console.log("PARAMS", key);
+
+    try {
+      await deleteFromWasabi(key);
+      res.send("SUPPRESSION OK");
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send("Erreur lors de la suppression");
     }
   },
 };

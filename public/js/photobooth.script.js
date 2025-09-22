@@ -1,4 +1,5 @@
 const modalPicturePreview = document.getElementById("modalPicturePreview");
+let currentPicture;
 
 const photobooth = {
   init: () => {
@@ -41,7 +42,8 @@ const photobooth = {
         })
           .then((res) => res.json())
           .then((data) => {
-            displayPictureModal(data);
+            currentPicture = { ...data };
+            displayPictureModal(currentPicture);
           })
           .catch((err) => console.error("❌ Erreur :", err));
       }
@@ -54,27 +56,26 @@ const photobooth = {
   displayPictureModal: (data) => {
     const img = document.getElementById("pictureTaken");
     img.src = data.url;
-
     modalPicturePreview.showModal();
-    pictureTakenValidation(data.key);
+    pictureTakenValidation();
   },
 
   // ============================================================================== //
   // Manager form picture
   // ============================================================================== //
-  pictureTakenValidation: (key) => {
+  pictureTakenValidation: () => {
     window.addEventListener("keydown", async (event) => {
       if (!modalPicturePreview.open) return;
 
       if (event.key.toLowerCase() === "y") {
+        currentPicture = null;
         modalPicturePreview.close();
-        console.log("✅ Photo conservée");
       }
 
       if (event.key.toLowerCase() === "n") {
-        await deletePicture(key);
+        await deletePicture(currentPicture.key);
+        currentPicture = null;
         modalPicturePreview.close();
-        console.log("🗑️ Photo supprimée");
       }
     });
   },
