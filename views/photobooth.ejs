@@ -30,10 +30,10 @@
 </section>
 
 <!-- UI BUSY OVERLAY -->
-<section id="busyLoader">
+<section id="busyLoader" hidden>
   <span class="alexis-walk"></span>
   <span class="vefa-walk"></span>
-  <p>Récupération de la photo...</p>
+  <p>Opération sur la photo en cours...</p>
 </section>
 
 <!-- PICTURE MODAL PREVIEW -->
@@ -42,10 +42,10 @@
     <header><h2>Conserver ?</h2></header>
     <img id="pictureTaken" src="" alt="Photo prise" />
     <footer>
-      <form class="btn-modal">
+      <div class="btn-modal">
         <p>Oui</p>
         <div class="btn green"></div>
-      </form>
+      </div>
 
       <div id="btnDeletePicture" class="btn-modal">
         <p>Non</p>

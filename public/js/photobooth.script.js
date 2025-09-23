@@ -1,4 +1,6 @@
 const modalPicturePreview = document.getElementById("modalPicturePreview");
+const busyLoader = document.getElementById("busyLoader");
+const busy = (state) => busyLoader.toggleAttribute("hidden", !state);
 let currentPicture;
 let isCapturing = false;
 
@@ -36,6 +38,7 @@ const photobooth = {
       if (modalPicturePreview.open || event.code !== "Space" || isCapturing) return;
 
       event.preventDefault();
+      busy(true);
       isCapturing = true;
 
       try {
@@ -47,7 +50,7 @@ const photobooth = {
         console.error("❌ Erreur :", error);
       } finally {
         isCapturing = false;
-        console.log("final trigger");
+        busy(false);
       }
     });
   },
@@ -86,12 +89,16 @@ const photobooth = {
   // Manager form picture
   // ============================================================================== //
   deletePicture: async (key) => {
-    fetch(`/delete-picture/${key}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.text())
-      .then((msg) => console.log(msg))
-      .catch((err) => console.error("Erreur suppression photo :", err));
+    busy(true);
+    try {
+      const res = await fetch(`/delete-picture/${key}`, { method: "DELETE" });
+      const msg = await res.text();
+      console.log(msg);
+    } catch (err) {
+      console.error("Erreur suppression photo :", err);
+    } finally {
+      busy(false);
+    }
   },
 };
 
