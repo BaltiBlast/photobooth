@@ -1,31 +1,35 @@
 <%- include("partials/head.ejs") %>
 
+<!-- TITLE -->
 <section class="title">
   <h1>Photobooth</h1>
 </section>
 
 <section class="grid-container">
+  <!-- ANIMATED BUTTON -->
   <div class="infos">
     <h3>Photo</h3>
     <div class="btn-grid">
-      <div class="btn red"></div>
-      <div class="btn green"></div>
       <div class="btn yellow"></div>
       <div class="btn blue"></div>
     </div>
   </div>
 
+  <!-- VIDEO CONTAINER -->
   <div id="video-container">
+    <span id="countdown"></span>
     <img src="/assets/png/frame.png" alt="" srcset="" />
     <video autoplay playsinline id="video"></video>
   </div>
 
+  <!-- QR CODE -->
   <div class="qr-code">
     <h3>Galerie</h3>
     <img src="/assets/svg/qr-code.svg" alt="qr code" />
   </div>
 </section>
 
+<!-- PICTURE MODAL PREVIEW -->
 <dialog id="modalPicturePreview">
   <article>
     <header><h2>Conserver ?</h2></header>
