@@ -1,4 +1,5 @@
 const { uploadToWasabi, getFormattedPictureName, deleteFromWasabi } = require("../../models/wasabi.model.js");
+const { spawn } = require("child_process");
 const fs = require("fs");
 
 const photobooth = {
@@ -7,6 +8,7 @@ const photobooth = {
   },
 
   uploadPicture: async (req, res, next) => {
+    // const picture = await photobooth.capturePicture();
     const picture = fs.readFileSync("./public/assets/test.jpg");
     const pictureNameFormated = await getFormattedPictureName();
 
@@ -22,8 +24,6 @@ const photobooth = {
   deletePicture: async (req, res, next) => {
     const key = req.params.key;
 
-    console.log("PARAMS", key);
-
     try {
       await deleteFromWasabi(key);
       res.send("SUPPRESSION OK");
@@ -31,6 +31,20 @@ const photobooth = {
       console.error(err);
       return res.status(500).send("Erreur lors de la suppression");
     }
+  },
+
+  capturePicture: async () => {
+    return new Promise((resolve, reject) => {
+      const gphoto = spawn("gphoto2", ["--capture-image-and-download", "--stdout"]);
+      const chunks = [];
+
+      gphoto.stdout.on("data", (chunk) => chunks.push(chunk));
+      gphoto.on("error", reject);
+
+      gphoto.on("close", (code) => {
+        code === 0 ? resolve(Buffer.concat(chunks)) : reject(new Error(`gphoto2 exited with code ${code}`));
+      });
+    });
   },
 };
 
