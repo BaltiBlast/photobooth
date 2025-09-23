@@ -1,6 +1,5 @@
 const { uploadToWasabi, getFormattedPictureName, deleteFromWasabi } = require("../../models/wasabi.model.js");
 const { spawn } = require("child_process");
-const fs = require("fs");
 
 const photobooth = {
   getPhotobooth: (req, res, next) => {
@@ -8,11 +7,10 @@ const photobooth = {
   },
 
   uploadPicture: async (req, res, next) => {
-    // const picture = await photobooth.capturePicture();
-    const picture = fs.readFileSync("./public/assets/test.jpg");
     const pictureNameFormated = await getFormattedPictureName();
 
     try {
+      const picture = await photobooth.capturePicture();
       const upload = await uploadToWasabi(picture, pictureNameFormated);
       return res.send(upload);
     } catch (err) {
