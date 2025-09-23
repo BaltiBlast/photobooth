@@ -1,5 +1,6 @@
 const modalPicturePreview = document.getElementById("modalPicturePreview");
 const busyLoader = document.getElementById("busyLoader");
+const img = document.getElementById("pictureTaken");
 const busy = (state) => busyLoader.toggleAttribute("hidden", !state);
 let currentPicture;
 let isCapturing = false;
@@ -49,16 +50,20 @@ const photobooth = {
       countdown.textContent = "";
 
       try {
+        setTimeout(() => {
+          busy(true);
+        }, 2000);
+
         const res = await fetch("/take-picture", { method: "POST" });
         const data = await res.json();
-        busy(true);
         currentPicture = { ...data };
+
         displayPictureModal(currentPicture);
       } catch (error) {
         console.error("❌ Erreur :", error);
       } finally {
-        isCapturing = false;
         busy(false);
+        isCapturing = false;
       }
     });
   },
@@ -67,7 +72,6 @@ const photobooth = {
   // Display modal with picture taken
   // ============================================================================== //
   displayPictureModal: (data) => {
-    const img = document.getElementById("pictureTaken");
     img.src = data.url;
     modalPicturePreview.showModal();
     pictureTakenValidation();
@@ -97,14 +101,13 @@ const photobooth = {
   // Requete to delete picture with her key
   // ============================================================================== //
   deletePicture: async (key) => {
-    busy(true);
     try {
-      const res = await fetch(`/delete-picture/${key}`, { method: "DELETE" });
-      const msg = await res.text();
-      console.log(msg);
+      busy(true);
+      await fetch(`/delete-picture/${key}`, { method: "DELETE" });
     } catch (err) {
       console.error("Erreur suppression photo :", err);
     } finally {
+      img.src = null;
       busy(false);
     }
   },
