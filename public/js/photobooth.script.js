@@ -7,7 +7,7 @@ let isCapturing = false;
 const photobooth = {
   init: () => {
     startLiveCamera();
-    spaceBarEvent();
+    onTakePicture();
   },
 
   // ============================================================================== //
@@ -33,17 +33,25 @@ const photobooth = {
   // ============================================================================== //
   // Spacebar event who trigger picture take //
   // ============================================================================== //
-  spaceBarEvent: () => {
+  onTakePicture: () => {
+    const countdown = document.getElementById("countdown");
+
     window.addEventListener("keydown", async (event) => {
       if (modalPicturePreview.open || event.code !== "Space" || isCapturing) return;
 
       event.preventDefault();
-      busy(true);
       isCapturing = true;
+
+      for (let i = 3; i >= 1; i--) {
+        countdown.textContent = i;
+        await new Promise((r) => setTimeout(r, 1000));
+      }
+      countdown.textContent = "";
 
       try {
         const res = await fetch("/take-picture", { method: "POST" });
         const data = await res.json();
+        busy(true);
         currentPicture = { ...data };
         displayPictureModal(currentPicture);
       } catch (error) {
@@ -86,7 +94,7 @@ const photobooth = {
   },
 
   // ============================================================================== //
-  // Manager form picture
+  // Requete to delete picture with her key
   // ============================================================================== //
   deletePicture: async (key) => {
     busy(true);
@@ -102,6 +110,7 @@ const photobooth = {
   },
 };
 
-const { startLiveCamera, spaceBarEvent, displayPictureModal, pictureTakenValidation, deletePicture } = photobooth;
+const { startLiveCamera, onTakePicture, displayPictureModal, pictureTakenValidation, deletePicture, countdownTimer } =
+  photobooth;
 
 document.addEventListener("DOMContentLoaded", photobooth.init());
