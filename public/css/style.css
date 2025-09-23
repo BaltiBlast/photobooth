@@ -1,6 +1,6 @@
 :root {
-  --frame: 16px;
-  --frames: 2;
+  --frameBtn: 16px;
+  --framesBtn: 2;
   --scale: 5;
 }
 
@@ -78,17 +78,17 @@
 
 .btn-grid {
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(2, auto);
   justify-content: center;
 }
 
 .btn {
-  width: calc(var(--frame) * var(--scale));
-  height: calc(var(--frame) * var(--scale));
+  width: calc(var(--frameBtn) * var(--scale));
+  height: calc(var(--frameBtn) * var(--scale));
   background-repeat: no-repeat;
-  background-size: calc(var(--frame) * var(--frames) * var(--scale)) calc(var(--frame) * var(--scale));
+  background-size: calc(var(--frameBtn) * var(--framesBtn) * var(--scale)) calc(var(--frameBtn) * var(--scale));
   image-rendering: pixelated;
-  animation: press 0.9s steps(var(--frames)) infinite;
+  animation: press 0.9s steps(var(--framesBtn)) infinite;
 }
 
 .btn.green {
@@ -139,6 +139,65 @@
   font-size: 2.2rem;
   margin: 0;
 }
+/* ======================================================================== */
+/* SPINNER / LOADER */
+/* ======================================================================== */
+#busyLoader {
+  display: grid;
+  place-items: center;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none; /* ne bloque pas les clics */
+}
+
+.alexis-walk {
+  display: inline-block;
+  width: 270px;
+  height: 600px;
+  background: url("../assets/png/alexis-ss.png") 0 0 / 1080px 600px no-repeat;
+  animation: alexis-animation-walk 0.75s steps(4) infinite;
+  image-rendering: pixelated;
+  transform: scale(0.4);
+  position: relative;
+  z-index: 2;
+}
+
+.vefa-walk {
+  display: inline-block;
+  width: 270px; /* largeur d'une frame */
+  height: 440px; /* hauteur d'une frame */
+  background: url("../assets/png/vefa-ss.png") 0 0 / 540px 440px no-repeat;
+  animation: vefa-animation-walk 0.6s steps(2) infinite;
+  image-rendering: pixelated;
+  transform: scale(0.5);
+  position: relative;
+  z-index: 1;
+  margin-left: -90px;
+}
+
+.pair {
+  display: flex;
+  align-items: flex-end; /* aligne par le bas */
+}
+
+@keyframes alexis-animation-walk {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: -1080px;
+  }
+}
+
+@keyframes vefa-animation-walk {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: -540px;
+  } /* 2 frames de 270px = 540px */
+}
 
 /* ======================================================================== */
 /* ANIMATIONS */
@@ -153,7 +212,7 @@
     background-position: 0 0;
   }
   to {
-    background-position: calc(-1 * var(--frame) * var(--frames) * var(--scale)) 0;
+    background-position: calc(-1 * var(--frameBtn) * var(--framesBtn) * var(--scale)) 0;
   }
 }
 

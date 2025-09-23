@@ -1,5 +1,6 @@
 const modalPicturePreview = document.getElementById("modalPicturePreview");
 let currentPicture;
+let isCapturing = false;
 
 const photobooth = {
   init: () => {
@@ -30,22 +31,23 @@ const photobooth = {
   // ============================================================================== //
   // Spacebar event who trigger picture take //
   // ============================================================================== //
-  spaceBarEvent: async () => {
-    window.addEventListener("keydown", (event) => {
-      if (modalPicturePreview.open) return;
+  spaceBarEvent: () => {
+    window.addEventListener("keydown", async (event) => {
+      if (modalPicturePreview.open || event.code !== "Space" || isCapturing) return;
 
-      if (event.code === "Space") {
-        event.preventDefault();
+      event.preventDefault();
+      isCapturing = true;
 
-        fetch("/take-picture", {
-          method: "POST",
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            currentPicture = { ...data };
-            displayPictureModal(currentPicture);
-          })
-          .catch((err) => console.error("❌ Erreur :", err));
+      try {
+        const res = await fetch("/take-picture", { method: "POST" });
+        const data = await res.json();
+        currentPicture = { ...data };
+        displayPictureModal(currentPicture);
+      } catch (error) {
+        console.error("❌ Erreur :", error);
+      } finally {
+        isCapturing = false;
+        console.log("final trigger");
       }
     });
   },
