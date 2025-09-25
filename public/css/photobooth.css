@@ -1,9 +1,3 @@
-:root {
-  --frameBtn: 16px;
-  --framesBtn: 2;
-  --scale: 5;
-}
-
 body {
   height: 100vh;
   display: flex;
@@ -88,38 +82,6 @@ body {
 .infos > h3 {
   font-size: 3rem;
   font-family: "Jersey 20", sans-serif;
-}
-
-/* ======================================================================== */
-/* ANIMATED BUTTONS */
-/* ======================================================================== */
-
-.btn-grid {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  justify-content: center;
-}
-
-.btn {
-  width: calc(var(--frameBtn) * var(--scale));
-  height: calc(var(--frameBtn) * var(--scale));
-  background-repeat: no-repeat;
-  background-size: calc(var(--frameBtn) * var(--framesBtn) * var(--scale)) calc(var(--frameBtn) * var(--scale));
-  image-rendering: pixelated;
-  animation: press 0.9s steps(var(--framesBtn)) infinite;
-}
-
-.btn.green {
-  background-image: url("../assets/png/btn-green-ss.png");
-}
-.btn.blue {
-  background-image: url("../assets/png/btn-blue-ss.png");
-}
-.btn.red {
-  background-image: url("../assets/png/btn-red-ss.png");
-}
-.btn.yellow {
-  background-image: url("../assets/png/btn-yellow-ss.png");
 }
 
 /* ======================================================================== */
@@ -217,10 +179,6 @@ body {
 /* ANIMATIONS */
 /* ======================================================================== */
 
-.autoplay {
-  animation: press 1s steps(2) infinite;
-}
-
 @keyframes alexis-animation-walk {
   from {
     background-position-x: 0;
@@ -237,15 +195,6 @@ body {
   to {
     background-position-x: -540px;
   } /* 2 frames de 270px = 540px */
-}
-
-@keyframes press {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: calc(-1 * var(--frameBtn) * var(--framesBtn) * var(--scale)) 0;
-  }
 }
 
 @keyframes levitation {
