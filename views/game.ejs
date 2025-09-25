@@ -1,7 +1,39 @@
 <%- include("partials/head.ejs") %>
 
 <section class="game">
+  <!-- COUNTDOWN -->
+  <section class="game-countdown">
+    <span id="gameCountdown"></span>
+  </section>
+
+  <!-- ASTEROIDE -->
   <img id="propsAsteroide" class="asteroide spin levitate hit" src="/assets/png/asteroide.png" alt="" srcset="" />
+
+  <section class="screen-title">
+    <div class="ladder">
+      <h1>Classement</h1>
+
+      <!-- LADDER -->
+      <ul>
+        <!-- <li>1. Couille</li>
+        <li>1. Couille</li>
+        <li>1. Couille</li>
+        <li>1. Couille</li>
+        <li>1. Couille</li>
+        <li>1. Couille</li>
+        <li>1. Couille</li>
+        <li>1. Couille</li>
+        <li>1. Couille</li>
+        <li>1. Couille</li> -->
+      </ul>
+
+      <!-- INSTRUCTIONS -->
+      <div>
+        <p>Détruit l'asteroïde le plus vite possible en appuyant sur :</p>
+        <img src="" alt="Buzzer" />
+      </div>
+    </div>
+  </section>
 </section>
 
 <script src="/js/game.script.js"></script>

@@ -14,6 +14,7 @@ section {
 }
 
 .game {
+  position: relative;
   display: grid;
   place-items: center;
   width: 100vw;
@@ -22,22 +23,16 @@ section {
   background-size: cover;
 }
 
+/* ======================================================================== */
+/* ASTEROIDE */
+/* ======================================================================== */
 .asteroide {
   width: 20%;
 }
 
-.levitate {
-  animation: float var(--float-duration) var(--easing) infinite alternate;
-  will-change: transform;
-}
-
-.spin {
-  animation: spin var(--spin-duration) linear infinite;
-  will-change: transform;
-}
-
 .levitate.spin {
   animation: float var(--float-duration) var(--easing) infinite alternate, spin var(--spin-duration) linear infinite;
+  will-change: transform;
 }
 
 .hit {
@@ -45,9 +40,64 @@ section {
 }
 
 /* ======================================================================== */
+/* COUNTDOWN */
+/* ======================================================================== */
+.game-countdown {
+  font-family: "Jersey 20", sans-serif;
+  font-size: 7rem;
+  top: 2rem;
+  color: white;
+  position: absolute;
+}
+
+/* ======================================================================== */
+/* SCREEN TITLE */
+/* ======================================================================== */
+.screen-title {
+  position: absolute;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+}
+
+.ladder {
+  width: 800px;
+  height: 850px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.ladder ul {
+  height: 400px;
+}
+
+.ladder h1,
+li,
+p,
+ul {
+  font-family: "Jersey 20", sans-serif;
+  color: white !important;
+  margin: 0 !important;
+}
+
+.ladder h1 {
+  font-size: 4rem;
+}
+
+.ladder div p {
+  font-size: 1.3rem;
+}
+
+/* ======================================================================== */
 /* ANIMATIONS */
 /* ======================================================================== */
-
 @keyframes float {
   from {
     translate: 0 0;

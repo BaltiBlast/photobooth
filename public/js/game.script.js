@@ -3,9 +3,15 @@ const asteroideData = {
   props: document.getElementById("propsAsteroide"),
 };
 
+const countdown = {
+  duration: 60,
+  container: document.getElementById("gameCountdown"),
+};
+
 const game = {
   init: () => {
     kickAsteroide();
+    startCountdown(60);
   },
 
   // ============================================================================== //
@@ -37,8 +43,22 @@ const game = {
     asteroideData.life = asteroideData.life - 1;
     console.log(asteroideData.life);
   },
+
+  // ============================================================================== //
+  // COUNTDOWN //
+  // ============================================================================== //
+  startCountdown: (duration) => {
+    let remaining = duration;
+    countdown.container.textContent = remaining;
+
+    const tick = setInterval(() => {
+      remaining--;
+      countdown.container.textContent = remaining;
+      if (remaining <= 0) clearInterval(tick);
+    }, 1000);
+  },
 };
 
-const { kickAsteroide, decreaseAsteroideLife } = game;
+const { kickAsteroide, decreaseAsteroideLife, startCountdown } = game;
 
 document.addEventListener("DOMContentLoaded", game.init());
