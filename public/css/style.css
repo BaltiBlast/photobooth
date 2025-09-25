@@ -4,6 +4,13 @@
   --scale: 5;
 }
 
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -17,7 +24,7 @@
   display: grid;
   place-items: center;
   padding: 0.5rem;
-  margin: 0;
+  margin: 2.5rem 0;
 }
 
 .title > h1 {
@@ -70,6 +77,7 @@
 .qr-code,
 .infos {
   text-align: center;
+  margin: 0 4.5rem;
 }
 
 .qr-code > img {
@@ -193,6 +201,26 @@
   font-size: 2rem;
 }
 
+/* ======================================================================== */
+/* GALLERY INSTRUCTION */
+/* ======================================================================== */
+
+.gallery-link {
+  font-family: "Jersey 20", sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  margin: 3rem;
+  text-transform: uppercase;
+}
+
+/* ======================================================================== */
+/* ANIMATIONS */
+/* ======================================================================== */
+
+.autoplay {
+  animation: press 1s steps(2) infinite;
+}
+
 @keyframes alexis-animation-walk {
   from {
     background-position-x: 0;
@@ -209,14 +237,6 @@
   to {
     background-position-x: -540px;
   } /* 2 frames de 270px = 540px */
-}
-
-/* ======================================================================== */
-/* ANIMATIONS */
-/* ======================================================================== */
-
-.autoplay {
-  animation: press 1s steps(2) infinite;
 }
 
 @keyframes press {
