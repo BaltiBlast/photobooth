@@ -2,6 +2,9 @@
   --frameBtn: 16px;
   --framesBtn: 2;
   --scale: 5;
+  --typo: "UnifrakturCook", cursive;
+  --red: rgb(160, 32, 32);
+  --white: white;
 }
 
 body {
@@ -9,6 +12,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url("../assets/png/emo-bg.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .grid-container {
@@ -28,14 +35,13 @@ body {
 }
 
 .title > h1 {
-  font-family: "Jersey 20", sans-serif;
-  font-weight: 400;
+  font-family: var(--typo);
   font-style: normal;
-  text-transform: uppercase;
   font-size: 5rem;
   letter-spacing: 0.3rem;
   margin: 0;
   animation: levitation 2.5s ease-in-out infinite;
+  color: var(--red);
 }
 
 /* ======================================================================== */
@@ -63,7 +69,7 @@ body {
 }
 
 #countdown {
-  font-family: "Jersey 20", sans-serif;
+  font-family: var(--typo);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -94,7 +100,8 @@ body {
 .qr-code > h3,
 .infos > h3 {
   font-size: 3rem;
-  font-family: "Jersey 20", sans-serif;
+  font-family: var(--typo);
+  color: var(--red);
 }
 
 /* ======================================================================== */
@@ -134,11 +141,10 @@ body {
 /* ======================================================================== */
 
 #modalPicturePreview h2 {
-  font-family: "Jersey 20", sans-serif;
+  font-family: var(--typo);
   text-align: center;
   margin: 0;
   font-size: 4rem;
-  text-transform: uppercase;
 }
 
 #modalPicturePreview > article {
@@ -159,8 +165,7 @@ body {
 }
 
 .btn-modal > p {
-  font-family: "Jersey 20", sans-serif;
-  text-transform: uppercase;
+  font-family: var(--typo);
   font-size: 2.2rem;
   margin: 0;
 }
@@ -178,30 +183,18 @@ body {
   margin: 0;
 }
 
-.alexis-walk {
+.oce-talk {
   display: inline-block;
-  width: 270px;
-  height: 600px;
-  background: url("../assets/png/alexis-ss.png") 0 0 / 1080px 600px no-repeat;
-  animation: alexis-animation-walk 0.75s steps(4) infinite;
-  image-rendering: pixelated;
+  width: 600px;
+  height: 794px;
+  background: url("../assets/png/oce-talk.png") 0 0 / 2400px 794px no-repeat;
+  animation: oce-talk 0.45s steps(4) infinite;
   transform: scale(0.4);
   position: absolute;
 }
 
-.vefa-walk {
-  display: inline-block;
-  width: 270px; /* largeur d'une frame */
-  height: 440px; /* hauteur d'une frame */
-  background: url("../assets/png/vefa-ss.png") 0 0 / 540px 440px no-repeat;
-  animation: vefa-animation-walk 0.6s steps(2) infinite;
-  image-rendering: pixelated;
-  transform: scale(0.5);
-  margin: 85px 100px 0 0;
-}
-
 #busyLoader p {
-  font-family: "Jersey 20", sans-serif;
+  font-family: var(--typo);
   position: absolute;
   margin-top: 400px;
   color: white;
@@ -213,11 +206,28 @@ body {
 /* ======================================================================== */
 
 .gallery-link {
-  font-family: "Jersey 20", sans-serif;
-  font-size: 2rem;
+  font-family: var(--typo);
+  color: var(--red);
+  font-size: 3.5rem;
   text-align: center;
   margin: 3rem;
-  text-transform: uppercase;
+}
+
+.info-footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.gif-box {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gif {
+  width: 200px;
+  height: 200px;
 }
 
 /* ======================================================================== */
@@ -228,22 +238,13 @@ body {
   animation: press 1s steps(2) infinite;
 }
 
-@keyframes alexis-animation-walk {
+@keyframes oce-talk {
   from {
     background-position-x: 0;
   }
   to {
-    background-position-x: -1080px;
+    background-position-x: -2400px;
   }
-}
-
-@keyframes vefa-animation-walk {
-  from {
-    background-position-x: 0;
-  }
-  to {
-    background-position-x: -540px;
-  } /* 2 frames de 270px = 540px */
 }
 
 @keyframes press {
